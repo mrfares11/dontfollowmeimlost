@@ -1,0 +1,44 @@
+# System / ROS 2 packages for the AMR project (Ubuntu 22.04 + ROS 2 Humble).
+# Install with:
+#     sudo apt update
+#     xargs -a apt-requirements.txt sudo apt install -y
+
+# Core ROS 2
+ros-humble-desktop
+
+# Nav2 stack
+ros-humble-nav2-bringup
+ros-humble-nav2-mppi-controller
+ros-humble-nav2-map-server
+
+# SLAM + localization
+ros-humble-slam-toolbox
+ros-humble-robot-localization
+
+# Gazebo Sim (Garden / Fortress) and ROS bridges
+ros-humble-ros-gz-sim
+ros-humble-ros-gz-bridge
+ros-humble-ros-gz-image
+ros-humble-ros-gz-interfaces
+
+# TF + sensor bridges
+ros-humble-tf2-ros
+ros-humble-tf2-geometry-msgs
+ros-humble-tf2-tools
+ros-humble-cv-bridge
+
+# Exploration (built from source if not available as binary)
+# ros-humble-explore-lite
+
+# Python plumbing
+python3-tk
+python3-yaml
+python3-numpy
+python3-pil
+python3-scipy
+python3-opencv
+
+# Optional but very helpful for debugging
+ros-humble-rqt
+ros-humble-rqt-tf-tree
+ros-humble-rqt-graph

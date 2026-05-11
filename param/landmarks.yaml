@@ -1,0 +1,126 @@
+DOCK:
+  approach_pose:
+    x: 2.4868106979220572
+    y: 0.5932958142820792
+    yaw: 0.6818606665509488
+  best_quality: 0.7686818571334395
+  last_range_m: 1.616365101795323
+  last_updated: '2026-05-11T15:54:52+00:00'
+  qr_pose:
+    x: 3.119748774966234
+    y: 1.1748468767167104
+  reference_frame: map
+  sightings: 123
+  total_weight: 22.38263904336729
+FIRE_STATION:
+  approach_pose:
+    x: 6.875042727115587
+    y: 13.129442192460923
+    yaw: -0.61438996741421
+  best_quality: 0.6843267605681386
+  last_range_m: 8.67266845703125
+  last_updated: '2026-05-11T15:56:22+00:00'
+  qr_pose:
+    x: 7.500187980323683
+    y: 13.00544779398531
+  reference_frame: map
+  sightings: 487
+  total_weight: 89.40233245862544
+HOUSE_1:
+  approach_pose:
+    x: 17.21089429296032
+    y: 45.043940349455305
+    yaw: 1.9715301138467078
+  best_quality: 0.4879163980328788
+  last_range_m: 2.502568483352661
+  last_updated: '2026-05-11T12:39:49+00:00'
+  qr_pose:
+    x: 16.646174971401905
+    y: 46.35237186863243
+  reference_frame: map
+  sightings: 75
+  total_weight: 11.604272052537251
+HOUSE_2:
+  approach_pose:
+    x: 19.9075843540172
+    y: 28.422087706094654
+    yaw: -2.4878603524626572
+  best_quality: 0.6263677893082301
+  last_range_m: 6.762154579162598
+  last_updated: '2026-05-11T15:58:11+00:00'
+  qr_pose:
+    x: 18.838914424031028
+    y: 27.60611730442774
+  reference_frame: map
+  sightings: 272
+  total_weight: 51.70773250360585
+HOUSE_3:
+  approach_pose:
+    x: 36.36786893992106
+    y: 6.934843533473843
+    yaw: 0.8043264865556945
+  best_quality: 0.5513140542225706
+  last_range_m: 5.237626075744629
+  last_updated: '2026-05-11T15:58:52+00:00'
+  qr_pose:
+    x: 37.12783032304032
+    y: 7.701299275249835
+  reference_frame: map
+  sightings: 97
+  total_weight: 11.30034002511568
+HOUSE_4:
+  approach_pose:
+    x: 17.32702453896042
+    y: 1.4858259482715448
+    yaw: 0.8158344509564854
+  best_quality: 0.5149281922106942
+  last_range_m: 3.142648220062256
+  last_updated: '2026-05-11T15:59:13+00:00'
+  qr_pose:
+    x: 18.00559680330155
+    y: 2.2668534750676863
+  reference_frame: map
+  sightings: 110
+  total_weight: 16.00739090637545
+HOUSE_5:
+  approach_pose:
+    x: 21.21911441736201
+    y: 31.388543326666223
+    yaw: 2.1402416720493944
+  best_quality: 0.49666362757225424
+  last_range_m: 7.938724994659424
+  last_updated: '2026-05-11T15:58:14+00:00'
+  qr_pose:
+    x: 21.25643057842296
+    y: 31.733238258192856
+  reference_frame: map
+  sightings: 189
+  total_weight: 24.281131082591823
+RESTAURANT:
+  approach_pose:
+    x: 5.6120120951041645
+    y: 30.165373766918943
+    yaw: 2.052744887581195
+  best_quality: 0.3490212074356775
+  last_range_m: 3.8741449265252976
+  last_updated: '2026-05-11T15:56:30+00:00'
+  qr_pose:
+    x: 4.929730168954515
+    y: 31.4747351756094
+  reference_frame: map
+  sightings: 87
+  total_weight: 12.211284494930634
+SUPERMARKET:
+  approach_pose:
+    x: 34.285384784649786
+    y: 19.440544367557173
+    yaw: 2.0858560849844903
+  best_quality: 0.6716300200205296
+  last_range_m: 5.95295439929497
+  last_updated: '2026-05-11T15:58:39+00:00'
+  qr_pose:
+    x: 33.71450382334946
+    y: 20.422748574585185
+  reference_frame: map
+  sightings: 293
+  total_weight: 47.088811739658304

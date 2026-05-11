@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Session-local Claude state
+.claude/
+
+# Backups produced during development (kept locally, not part of source)
+.backups/
+
+# Bak / staging copies of params
+param/*.bak
+param/landmarks.yaml.before_*
+param/landmarks.yaml.demo_baseline
+param/landmarks.yaml.old_*
+param/nav2_chassis_params2.yaml
+
+# Compiled LaTeX
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz
+presentation.pdf
+
+# Logs
+*.log
+log/
+
+# Stale duplicate launch files at project root (the real ones live in scripts/)
+/bringup_all.launch.py
+/phase2.launch.py
+
+# Historical / backup maps — keep only saved_map.{pgm,yaml} and saved_map_1 as
+# an example. Older runs are excluded.
+maps/explored_*
+maps/map_177*.pgm
+maps/map_177*.yaml
+maps/saved_map_2.*
+maps/saved_map_3.*
+maps/saved_map_4.*
+maps/saved_map_5.*
+maps/saved_map.pgm.before_*
+maps/saved_map.yaml.before_*
+maps/saved_map.pgm.demo_baseline
+maps/saved_map.yaml.demo_baseline
+
+# Duplicate maps directory inside scripts (legacy)
+scripts/maps/

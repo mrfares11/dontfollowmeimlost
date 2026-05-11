@@ -1,0 +1,11 @@
+# Python dependencies for the AMR project.
+# ROS 2 Python packages (rclpy, tf2_*, cv_bridge, etc.) come from apt — see
+# apt-requirements.txt. Install these with:
+#     pip3 install -r requirements.txt
+
+numpy>=1.21
+opencv-python>=4.5
+PyYAML>=5.4
+pyzbar>=0.1.9
+scipy>=1.7
+Pillow>=9.0

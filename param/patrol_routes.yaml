@@ -1,0 +1,42 @@
+# Patrol routes for Phase 2 dynamic obstacles.
+# Each patrol drives a mini diff-drive bot back-and-forth between waypoints.
+# Topic names must match those declared in sdf/bigsmol.sdf for the corresponding model.
+#
+# IMPORTANT: coordinates are in the GAZEBO WORLD frame (same frame the SDF
+# <pose> tags use, same frame the DiffDrive plugin applies cmd_vel in body
+# frame from). The SLAM map frame is offset from Gazebo world by (-39.9, -29.6),
+# because slam_toolbox put map(0,0) at the chassis spawn pose.
+#
+# Equivalent map-frame intent:
+#   patrol_1: (5, 1) <-> (15, 1)  on the lower E-W street between DOCK and HOUSE_4
+#   patrol_2: (34, 5) <-> (34, 18) on the east N-S street toward HOUSE_3
+#
+# initial_yaw must match the SDF <pose> yaw component for each model so the
+# controller's dead-reckoning starts in sync with the actual heading.
+
+patrols:
+  patrol_1:
+    cmd_topic: /patrol_1/cmd_vel
+    waypoints:
+      - {x: -34.9, y: -28.6}
+      - {x: -24.9, y: -28.6}
+    linear_speed: 0.4
+    pause_at_endpoint_s: 2.0
+    waypoint_reach_tolerance_m: 0.5
+    initial_position:
+      x: -34.9
+      y: -28.6
+    initial_yaw: 0.0
+
+  patrol_2:
+    cmd_topic: /patrol_2/cmd_vel
+    waypoints:
+      - {x: -5.9, y: -24.6}
+      - {x: -5.9, y: -11.6}
+    linear_speed: 0.3
+    pause_at_endpoint_s: 2.0
+    waypoint_reach_tolerance_m: 0.5
+    initial_position:
+      x: -5.9
+      y: -24.6
+    initial_yaw: 1.5708

@@ -1,0 +1,164 @@
+% Compile with: pdflatex presentation.tex
+% (or use Overleaf if you prefer a web-based editor)
+
+\documentclass[10pt,aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+% -------- title page metadata --------
+\title[AMR Phase 1 \& 2]{Autonomous Mobile Robot}
+\subtitle{SLAM Mapping and Mission Execution in a City-Town Simulation}
+\author[Team]{Team Member 1 \and Team Member 2 \and Team Member 3}
+\institute[]{Course Name --- Course Code}
+\date{May 2026}
+
+\begin{document}
+
+% ============================================================
+% Slide 1 — Title
+% ============================================================
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ============================================================
+% Slide 2 — Map / SDF (simulation environment)
+% ============================================================
+\begin{frame}{Simulation Environment (Gazebo SDF)}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \textbf{World: \texttt{bigsmol.sdf}}
+      \begin{itemize}
+        \item Urban city-town map: streets, buildings, intersections
+        \item 9 landmarks tagged with QR codes \\
+              \texttt{DOCK, FIRE\_STATION, RESTAURANT,}
+              \texttt{SUPERMARKET, HOUSE\_1..5}
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Robot: \texttt{service\_robot/model.sdf}}
+      \begin{itemize}
+        \item Diff-drive chassis: 2.0 $\times$ 1.0 $\times$ 0.5 m
+        \item 4 cameras (front, left, right, back), 80$^{\circ}$ FoV each
+        \item 360$^{\circ}$ planar lidar (z = 0.9 m), IMU, 4 bumpers
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Dynamic obstacles}
+      \begin{itemize}
+        \item Two scripted patrol bots (1/3 scale, diff-drive)
+        \item Loop hand-picked waypoints in mapped streets
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      % Replace with a Gazebo screenshot of the world
+      \fbox{\parbox[c][4.5cm][c]{0.95\linewidth}{\centering \textit{Gazebo screenshot \\ (replace with image)}}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================
+% Slide 3 — SLAM (RViz screenshot)
+% ============================================================
+\begin{frame}{SLAM: Mapping the Environment}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \textbf{Pipeline}
+      \begin{itemize}
+        \item \texttt{slam\_toolbox} (online async mode) builds \texttt{/map} from \texttt{/scan}
+        \item \texttt{explore\_lite} drives the robot to frontiers autonomously
+        \item EKF (\texttt{robot\_localization}) fuses wheel odometry + IMU
+        \item Map saved as PGM/YAML on completion (\textasciitilde 956$\times$1270 cells, 0.05 m resolution)
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{QR landmark detection (parallel)}
+      \begin{itemize}
+        \item \texttt{qr\_localizer} runs on all 4 camera streams
+        \item Bearing-from-camera + range-from-lidar fusion
+        \item Quality-weighted running mean per label
+        \item Output: \texttt{landmarks.yaml}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      % Insert RViz screenshot of the saved map + landmarks here
+      \fbox{\parbox[c][5.0cm][c]{0.95\linewidth}{\centering \textit{RViz: saved map + \\ detected landmarks \\ (replace with image)}}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================
+% Slide 4 — Interface (Mission GUI)
+% ============================================================
+\begin{frame}{Mission Control Interface}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \textbf{Tkinter GUI: \texttt{landmark\_mission\_gui.py}}
+      \begin{itemize}
+        \item \textit{Go to specific location} tab: pick any landmark, navigate directly
+        \item \textit{Assign mission} tab: pre-defined multi-step routes
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Mission types}
+      \begin{itemize}
+        \item Grocery: \texttt{DOCK $\rightarrow$ SUPERMARKET $\rightarrow$ HOUSE $\rightarrow$ DOCK}
+        \item Food: \texttt{DOCK $\rightarrow$ RESTAURANT $\rightarrow$ HOUSE $\rightarrow$ DOCK}
+        \item Fire emergency: \texttt{DOCK $\rightarrow$ FIRE\_STATION $\rightarrow$ HOUSE $\rightarrow$ DOCK}
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Robustness features}
+      \begin{itemize}
+        \item Live progress: ``Distance remaining: 0.28 m''
+        \item Watchdog: cancels + retries if no progress for 30 s
+        \item Multi-leg missions continue past a failed leg
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      % Insert a screenshot of the GUI here
+      \fbox{\parbox[c][5.0cm][c]{0.95\linewidth}{\centering \textit{Mission Control \\ Center screenshot \\ (replace with image)}}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================
+% Slide 5 — Obstacle Avoidance and Replanning
+% ============================================================
+\begin{frame}{Dynamic Obstacle Avoidance \& Replanning}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \textbf{Costmap layers (Nav2)}
+      \begin{itemize}
+        \item \texttt{static\_layer}: saved map (walls)
+        \item \texttt{obstacle\_layer}: live \texttt{/scan} (new obstacles)
+        \item \textbf{Dual inflation:}
+          walls 1.5 m halo, \\ dynamic obstacles 0.3 m halo
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Local controller: MPPI}
+      \begin{itemize}
+        \item 1200 sampled trajectories per cycle, 2 s horizon
+        \item Critics: CostCritic, PathAlign, PathFollow, \dots
+        \item Auto-disables PathAlign when $>$\,7\% of path blocked
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Replanning}
+      \begin{itemize}
+        \item BT triggers \texttt{ComputePathToPose} at \textasciitilde 1 Hz
+        \item New obstacle in global costmap $\Rightarrow$ path re-routes
+        \item Collision monitor as safety fallback
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      % Insert a costmap / RViz screenshot showing the rerouted path
+      \fbox{\parbox[c][5.0cm][c]{0.95\linewidth}{\centering \textit{RViz: detour around \\ a dynamic obstacle \\ (replace with image)}}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\end{document}
